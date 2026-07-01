@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Programação de CLP e IHM na Prática - Fábio Beneli</title>
+    <style>
+        :root {
+            --primary: #004B87; /* Azul Industrial */
+            --secondary: #E67E22; /* Laranja de Destaque / Segurança */
+            --dark: #1E272C; /* Grafite Escuro */
+            --light: #F4F6F7; /* Cinza Claro Industrial */
+            --white: #FFFFFF;
+            --success: #2ECC71;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(135deg, #1A365D 0%, #004B87 100%);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 5px solid var(--secondary);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            color: #E2E8F0;
+        }
+
+        /* CTA Buttons */
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 18px 36px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+            margin: 15px 0;
+        }
+
+        .btn-cta:hover {
+            background-color: #D35400;
+            transform: translateY(-2px);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-white {
+            background-color: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            position: relative;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary);
+            margin: 10px auto 0 auto;
+        }
+
+        /* Target Audience / Problem */
+        .grid-2 {
+            display: table;
+            width: 100%;
+        }
+
+        .col {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .col {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        .card-box {
+            background: var(--light);
+            padding: 30px;
+            border-left: 5px solid var(--primary);
+            border-radius: 4px;
+            height: 100%;
+        }
+
+        .card-box h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        /* Pillars / Promises */
+        .pillars-grid {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .pillar-col {
+            display: table-cell;
+            padding: 15px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .pillar-col {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        .pillar-card {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--secondary);
+            height: 100%;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        /* Syllabus Accordion / List */
+        .syllabus-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .modules {
+            margin-bottom: 30px;
+            background: var(--light);
+            border-radius: 4px;
+            padding: 25px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .modules h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #E2E8F0;
+            padding-bottom: 5px;
+        }
+
+        .syllabus-list {
+            list-style: none;
+        }
+
+        .syllabus-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .syllabus-list li::before {
+            content: "✔";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        /* Differentials */
+        .diff-grid {
+            display: table;
+            width: 100%;
+        }
+
+        .diff-col {
+            display: table-cell;
+            width: 33.33%;
+            padding: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .diff-col {
+                display: block;
+                width: 100%;
+            }
+        }
+
+        .diff-card {
+            background: var(--light);
+            padding: 20px;
+            text-align: center;
+            border-radius: 4px;
+            font-weight: bold;
+            color: var(--primary);
+            border: 1px solid #E2E8F0;
+        }
+
+        /* Authority */
+        .profile-section {
+            background-color: #EBF4FA;
+        }
+
+        .profile-text {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+
+        .profile-text p {
+            margin-bottom: 15px;
+        }
+
+        .profile-text ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        /* Pricing & Guarantee */
+        .price-box {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 550px;
+            margin: 0 auto 40px auto;
+            border: 2px solid var(--secondary);
+        }
+
+        .price-box h3 {
+            text-transform: uppercase;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .price-main {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: var(--white);
+        }
+
+        .price-sub {
+            font-size: 1.2rem;
+            color: #A0AEC0;
+            margin-bottom: 25px;
+        }
+
+        .guarantee-box {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #FFF9F2;
+            border: 1px dashed var(--secondary);
+            border-radius: 4px;
+        }
+
+        .guarantee-box h4 {
+            color: var(--secondary);
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: #718096;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9rem;
+            border-top: 4px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header>
+        <div class="container">
+            <h1>Programação de CLP e IHM na Prática para a Indústria</h1>
+            <p>Domine a programação do CLP FX3U do zero ao intermediário e integre com a IHM Samkoon através de aplicações e projetos industriais reais.</p>
+            <a href="https://pay.hotmart.com/Q103578815L" class="btn-cta">Quero aprender CLP agora</a>
+        </div>
+    </header>
+
+    <!-- SOBRE O CURSO E PÚBLICO -->
+    <section class="section-white">
+        <div class="container">
+            <div class="grid-2">
+                <div class="col">
+                    <div class="card-box">
+                        <h3>Para quem é este curso?</h3>
+                        <p>Desenvolvido sob medida para iniciantes, técnicos, eletricistas, estudantes, profissionais autônomos e atuantes na área de automação que buscam capacitação prática rápida.</p>
+                        <p style="margin-top: 15px; font-weight: bold; color: var(--secondary);">* Requisito: Desejável ter conhecimento em eletricidade básica.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card-box">
+                        <h3>O Mercado de Trabalho Te Espera</h3>
+                        <p>O maior desafio de quem estuda automação é conseguir se colocar no mercado de trabalho por falta de oportunidades para aplicar a teoria na prática. Este curso quebra essa barreira trazendo cenários reais do dia a dia industrial.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROMESSAS PRINCIPAIS -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">O Que Você Vai Ser Capaz de Fazer</h2>
+            <div class="pillars-grid">
+                <div class="pillar-col">
+                    <div class="pillar-card">
+                        <h3>Programar CLP FX3U</h3>
+                        <p style="margin-top:10px; font-size:0.95rem;">Do absoluto zero ao nível intermediário sem enrolação.</p>
+                    </div>
+                </div>
+                <div class="pillar-col">
+                    <div class="pillar-card">
+                        <h3>Integrar com IHM Samkoon</h3>
+                        <p style="margin-top:10px; font-size:0.95rem;">Conectar e criar comunicação prática entre CLP e IHM.</p>
+                    </div>
+                </div>
+                <div class="pillar-col">
+                    <div class="pillar-card">
+                        <h3>Projetos Reais</h3>
+                        <p style="margin-top:10px; font-size:0.95rem;">Desenvolver soluções reais aplicadas diretamente na indústria.</p>
+                    </div>
+                </div>
+                <div class="pillar-col">
+                    <div class="pillar-card">
+                        <h3>Lógica Ladder</h3>
+                        <p style="margin-top:10px; font-size:0.95rem;">Entender e estruturar a lógica dominante no mercado industrial.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEÚDO PROGRAMÁTICO -->
+    <section class="section-white">
+        <div class="container">
+            <h2 class="section-title">Conteúdo do Curso</h2>
+            <div class="syllabus-container">
+                
+                <div class="modules">
+                    <h3>1. Funções Lógicas Essenciais</h3>
+                    <ul class="syllabus-list">
+                        <li>Aprenda a utilizar o software GX Works 2</li>
+                        <li>Endereçamento de memória e hardware</li>
+                        <li>Funções fundamentais: SET e RESET</li>
+                        <li>Utilização prática da função MOV</li>
+                        <li>Acionamento conjunto de CLP e IHM</li>
+                        <li>Lógica avançada com Temporizadores</li>
+                        <li>Contadores de 16 e 32 bits e Comparadores</li>
+                        <li>Conversão de números inteiros em reais</li>
+                        <li>Manipulação de dados: Word em Double Word</li>
+                        <li>Operações matemáticas com números inteiros e reais</li>
+                        <li>Criação de duas ou mais telas funcionais na IHM</li>
+                        <li>Configuração e leitura de Entradas e Saídas Analógicas</li>
+                    </ul>
+                </div>
+
+                <div class="modules">
+                    <h3>2. Práticas Desenvolvidas para Aplicações Reais na Indústria</h3>
+                    <ul class="syllabus-list">
+                        <li>Controle de nível com entrada analógica e comparador</li>
+                        <li>Calculadora industrial com as 4 operações matemáticas</li>
+                        <li>Medição de RPM de motor trifásico com sensor indutivo</li>
+                        <li>Implementação de lógica para Barreira de Segurança</li>
+                        <li>Uso de RTC (Real Time Clock) para data e hora no sistema</li>
+                        <li>Contador de voltas e rotações de motor trifásico com sensor indutivo</li>
+                        <li>Parametrização e leitura de Amplificador de fibra óptica</li>
+                        <li>Controle remoto aplicado a uma talha elétrica</li>
+                        <li>Criação de um Termostato Digital completo</li>
+                        <li>Horímetro (contador de horas de funcionamento)</li>
+                        <li>Saída analógica de 0 a 10V com voltímetro virtual na IHM</li>
+                        <li>Medição precisa de RPM utilizando Encoder</li>
+                        <li>Estruturação de Sub-rotinas com operação Manual e Automática</li>
+                        <li>Lógica de revezamento: Bomba principal e bomba reserva no controle de nível</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DIFERENCIAIS -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">Por Que Escolher Este Curso?</h2>
+            <div class="diff-grid">
+                <div class="diff-col"><div class="diff-card">Linguagem Simples</div></div>
+                <div class="diff-col"><div class="diff-card">Conteúdo Direto ao Ponto</div></div>
+                <div class="diff-col"><div class="diff-card">Foco Total em Prática Real</div></div>
+            </div>
+            <div class="diff-grid" style="margin-top: 15px;">
+                <div class="diff-col"><div class="diff-card">Projetos Industriais Autênticos</div></div>
+                <div class="diff-col"><div class="diff-card">Didática para Quem Nunca Programou</div></div>
+                <div class="diff-col"><div class="diff-card">Certificado de Conclusão Incluso</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AUTORIDADE -->
+    <section class="section-white profile-section">
+        <div class="container">
+            <h2 class="section-title">Quem Será Seu Instrutor?</h2>
+            <div class="profile-text" style="max-width: 800px; margin: 0 auto;">
+                <p>Olá, pessoal! Meu nome é <strong>Fábio Beneli</strong>. Atuo há vários anos na área de manutenção elétrica e automação industrial, com formação técnica em Mecatrônica e graduação em Engenharia Elétrica pela Estácio.</p>
+                <p>Durante minha trajetória profissional, tive contato direto com processos industriais, equipamentos, CLPs, redes e soluções reais do dia a dia — experiências que moldaram minha forma prática de ensinar.</p>
+                <p>Hoje, dedico meu tempo ao desenvolvimento de cursos focados em programação e automação, trazendo dicas reais, exemplos práticos e explicações objetivas para ajudar profissionais e estudantes a:</p>
+                <ul>
+                    <li>Aprimorar conhecimentos técnicos,</li>
+                    <li>Avançar na carreira, ou</li>
+                    <li>Ingressar no mercado de trabalho com mais segurança.</li>
+                </ul>
+                <p>Meus cursos são estruturados com vídeo aulas práticas, pensadas para mostrar como resolver os desafios que realmente encontramos no ambiente industrial. Seja bem-vindo(a) aos meus treinamentos — vamos aprender de forma simples, direta e aplicável à vida profissional!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREÇO E CHAMADA PARA AÇÃO -->
+    <section>
+        <div class="container">
+            <div class="price-box">
+                <h3>Oferta Especial de Lançamento</h3>
+                <div class="price-main">R$ 59,90</div>
+                <p class="price-sub">À vista ou parcelado em até 4x no cartão</p>
+                <a href="https://pay.hotmart.com/Q103578815L" class="btn-cta" style="margin: 0; width: 100%;">Quero aprender CLP agora</a>
+            </div>
+
+            <div class="guarantee-box">
+                <h4>🔒 Garantia Incondicional de 7 Dias</h4>
+                <p style="font-size: 0.95rem; color: #4A5568;">Sua compra é processada com total segurança pela <strong>Hotmart</strong>. Se em até 7 dias você não ficar satisfeito, peça seu dinheiro de volta.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Fábio Beneli - Todos os direitos reservados.</p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">Plataforma de pagamento e distribuição: Hotmart</p>
+        </div>
+    </footer>
+
+</body>
+</html>
